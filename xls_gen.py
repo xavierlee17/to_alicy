@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 
+__author__ = 'XavierStudio'
+
 # -*- coding: UTF-8 -*-
 import xlrd
 import xlwt
 import datetime
 import sys
 import os
+import time
 
 def xls_gen(filename,outputfile):
     data_excel = xlrd.open_workbook(filename)
@@ -66,14 +69,13 @@ def xls_gen(filename,outputfile):
 YYYY = str(datetime.date.today().year)
 MM = str(datetime.date.today().month)
 DD = str(datetime.date.today().day)
-
-
 i = 0
 for one in sys.argv:
     if i != 0:
         if os.path.isfile(one):
-            tmp = os.path.splitext(one)
             filename = one
-            outputfile=tmp[0]+'.out.'+YYYY+MM+DD+tmp[1]
-            xls_gen(filename,outputfile)
+            tmp = os.path.splitext(one)
+            if tmp[1] == '.xls' or tmp[1] == '.xlsx':
+                outputfile=tmp[0]+'.out.'+YYYY+MM+DD+tmp[1]
+                xls_gen(filename,outputfile)
     i = i+1
